@@ -122,6 +122,7 @@ void TestUtilLite::SetAllFields(unittest::TestAllTypesLite* message) {
   message->set_default_bool(false);
   message->set_default_string("415");
   message->set_default_bytes("416");
+  message->set_default_m_string("417");
 
   message->set_default_nested_enum(unittest::TestAllTypesLite::FOO);
   message->set_default_foreign_enum(unittest::FOREIGN_LITE_FOO);
@@ -336,6 +337,7 @@ void TestUtilLite::ExpectAllFieldsSet(
   EXPECT_TRUE(message.has_default_bool());
   EXPECT_TRUE(message.has_default_string());
   EXPECT_TRUE(message.has_default_bytes());
+  EXPECT_TRUE(message.has_default_m_string());
 
   EXPECT_TRUE(message.has_default_nested_enum());
   EXPECT_TRUE(message.has_default_foreign_enum());
@@ -357,6 +359,7 @@ void TestUtilLite::ExpectAllFieldsSet(
   EXPECT_FALSE(message.default_bool());
   EXPECT_EQ("415", message.default_string());
   EXPECT_EQ("416", message.default_bytes());
+  EXPECT_EQ("417", message.default_m_string());
 
   EXPECT_EQ(unittest::TestAllTypesLite::FOO, message.default_nested_enum());
   EXPECT_EQ(unittest::FOREIGN_LITE_FOO, message.default_foreign_enum());
@@ -484,6 +487,7 @@ void TestUtilLite::ExpectClear(const unittest::TestAllTypesLite& message) {
   EXPECT_FALSE(message.has_default_bool());
   EXPECT_FALSE(message.has_default_string());
   EXPECT_FALSE(message.has_default_bytes());
+  EXPECT_FALSE(message.has_default_m_string());
 
   EXPECT_FALSE(message.has_default_nested_enum());
   EXPECT_FALSE(message.has_default_foreign_enum());
@@ -506,6 +510,7 @@ void TestUtilLite::ExpectClear(const unittest::TestAllTypesLite& message) {
   EXPECT_EQ(true, message.default_bool());
   EXPECT_EQ("hello", message.default_string());
   EXPECT_EQ("world", message.default_bytes());
+  EXPECT_EQ("hello\nworld", message.default_m_string());
 
   EXPECT_EQ(unittest::TestAllTypesLite::BAR, message.default_nested_enum());
   EXPECT_EQ(unittest::FOREIGN_LITE_BAR, message.default_foreign_enum());

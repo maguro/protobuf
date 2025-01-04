@@ -121,7 +121,9 @@ CHARACTER_CLASS(Alphanumeric, ('a' <= c && c <= 'z') ||
 
 CHARACTER_CLASS(Escape, c == 'a' || c == 'b' || c == 'f' || c == 'n' ||
                             c == 'r' || c == 't' || c == 'v' || c == '\\' ||
-                            c == '?' || c == '\'' || c == '\"');
+                            c == '?' || c == '\'' || c == '\"' ||
+                            c == '`'  // affords escaping backticks in multi-line string
+                            );
 
 #undef CHARACTER_CLASS
 
@@ -179,6 +181,8 @@ inline char TranslateEscape(char c) {
       return '\'';
     case '"':
       return '\"';
+    case '`':
+      return '`';  // affords escaping backticks in multi-line string
 
     // We expect escape sequences to have been validated separately.
     default:
@@ -675,6 +679,13 @@ bool Tokenizer::Next() {
         }
       } else if (TryConsumeOne<Digit>()) {
         current_.type = ConsumeNumber(false, false);
+      } else if (TryConsume('`')) {
+        bool save = allow_multiline_strings_;
+        // temporarily allow multi-line strings
+        allow_multiline_strings_ = true;
+        ConsumeString('`');
+        allow_multiline_strings_ = save;
+        current_.type = TYPE_M_STRING;
       } else if (TryConsume('\"')) {
         ConsumeString('\"');
         current_.type = TYPE_STRING;
