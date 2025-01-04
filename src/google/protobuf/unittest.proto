@@ -212,6 +212,11 @@ message TestAllTypes {
     default = "world"
   ];
 
+  string default_m_string = 76 [
+    default = `hello
+world`
+  ];
+
   NestedEnum default_nested_enum = 81 [
     default = BAR
   ];
@@ -470,6 +475,11 @@ extend TestAllExtensions {
 
   bytes default_bytes_extension = 75 [
     default = "world"
+  ];
+
+  string default_m_string_extension = 76 [
+    default = `hello
+world`
   ];
 
   TestAllTypes.NestedEnum default_nested_enum_extension = 81 [
@@ -1173,6 +1183,19 @@ message TestExtremeDefaultValues {
 
   string replacement_string = 27 [
     default = "${unknown}"
+  ];
+
+  string tick_replacement_string = 28 [
+    default = `backtick
+multiline
+default`
+  ];
+
+  string multiline_string = 29 [
+    default = """triple
+double-quote
+multiline
+default"""
   ];
 }
 

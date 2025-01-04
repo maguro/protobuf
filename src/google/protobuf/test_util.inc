@@ -240,6 +240,7 @@ inline void TestUtil::SetDefaultFields(UNITTEST::TestAllTypes* message) {
   message->set_default_bool(false);
   message->set_default_string("415");
   message->set_default_bytes("416");
+  message->set_default_m_string("417");
 
   message->set_default_nested_enum(UNITTEST::TestAllTypes::FOO);
   message->set_default_foreign_enum(UNITTEST::FOREIGN_FOO);
@@ -491,6 +492,7 @@ inline void TestUtil::ExpectAllFieldsSet(
   EXPECT_TRUE(message.has_default_bool());
   EXPECT_TRUE(message.has_default_string());
   EXPECT_TRUE(message.has_default_bytes());
+  EXPECT_TRUE(message.has_default_m_string());
 
   EXPECT_TRUE(message.has_default_nested_enum());
   EXPECT_TRUE(message.has_default_foreign_enum());
@@ -512,6 +514,7 @@ inline void TestUtil::ExpectAllFieldsSet(
   EXPECT_FALSE(message.default_bool());
   EXPECT_EQ("415", message.default_string());
   EXPECT_EQ("416", message.default_bytes());
+  EXPECT_EQ("417", message.default_m_string());
 
   EXPECT_EQ(UNITTEST::TestAllTypes::FOO, message.default_nested_enum());
   EXPECT_EQ(UNITTEST::FOREIGN_FOO, message.default_foreign_enum());
@@ -648,6 +651,7 @@ inline void TestUtil::ExpectClear(const UNITTEST::TestAllTypes& message) {
   EXPECT_FALSE(message.has_default_bool());
   EXPECT_FALSE(message.has_default_string());
   EXPECT_FALSE(message.has_default_bytes());
+  EXPECT_FALSE(message.has_default_m_string());
 
   EXPECT_FALSE(message.has_default_nested_enum());
   EXPECT_FALSE(message.has_default_foreign_enum());
@@ -670,6 +674,7 @@ inline void TestUtil::ExpectClear(const UNITTEST::TestAllTypes& message) {
   EXPECT_TRUE(message.default_bool());
   EXPECT_EQ("hello", message.default_string());
   EXPECT_EQ("world", message.default_bytes());
+  EXPECT_EQ("hello\nworld", message.default_m_string());
 
   EXPECT_EQ(UNITTEST::TestAllTypes::BAR, message.default_nested_enum());
   EXPECT_EQ(UNITTEST::FOREIGN_BAR, message.default_foreign_enum());
@@ -1084,6 +1089,7 @@ inline void TestUtil::SetAllExtensions(UNITTEST::TestAllExtensions* message) {
   message->SetExtension(UNITTEST::default_bool_extension, false);
   message->SetExtension(UNITTEST::default_string_extension, "415");
   message->SetExtension(UNITTEST::default_bytes_extension, "416");
+    message->SetExtension(UNITTEST::default_m_string_extension, "417");
 
   message->SetExtension(UNITTEST::default_nested_enum_extension,
                         UNITTEST::TestAllTypes::FOO);
@@ -1410,6 +1416,7 @@ inline void TestUtil::ExpectAllExtensionsSet(
   EXPECT_TRUE(message.HasExtension(UNITTEST::default_bool_extension));
   EXPECT_TRUE(message.HasExtension(UNITTEST::default_string_extension));
   EXPECT_TRUE(message.HasExtension(UNITTEST::default_bytes_extension));
+  EXPECT_TRUE(message.HasExtension(UNITTEST::default_m_string_extension));
 
   EXPECT_TRUE(message.HasExtension(UNITTEST::default_nested_enum_extension));
   EXPECT_TRUE(message.HasExtension(UNITTEST::default_foreign_enum_extension));
@@ -1433,6 +1440,7 @@ inline void TestUtil::ExpectAllExtensionsSet(
   EXPECT_FALSE(message.GetExtension(UNITTEST::default_bool_extension));
   EXPECT_EQ("415", message.GetExtension(UNITTEST::default_string_extension));
   EXPECT_EQ("416", message.GetExtension(UNITTEST::default_bytes_extension));
+  EXPECT_EQ("417", message.GetExtension(UNITTEST::default_m_string_extension));
 
   EXPECT_EQ(UNITTEST::TestAllTypes::FOO,
             message.GetExtension(UNITTEST::default_nested_enum_extension));
@@ -1624,6 +1632,7 @@ inline void TestUtil::ExpectExtensionsClear(
   EXPECT_FALSE(message.HasExtension(UNITTEST::default_bool_extension));
   EXPECT_FALSE(message.HasExtension(UNITTEST::default_string_extension));
   EXPECT_FALSE(message.HasExtension(UNITTEST::default_bytes_extension));
+  EXPECT_FALSE(message.HasExtension(UNITTEST::default_m_string_extension));
 
   EXPECT_FALSE(message.HasExtension(UNITTEST::default_nested_enum_extension));
   EXPECT_FALSE(message.HasExtension(UNITTEST::default_foreign_enum_extension));
@@ -1648,6 +1657,7 @@ inline void TestUtil::ExpectExtensionsClear(
   EXPECT_TRUE(message.GetExtension(UNITTEST::default_bool_extension));
   EXPECT_EQ("hello", message.GetExtension(UNITTEST::default_string_extension));
   EXPECT_EQ("world", message.GetExtension(UNITTEST::default_bytes_extension));
+  EXPECT_EQ("hello\nworld", message.GetExtension(UNITTEST::default_m_string_extension));
 
   EXPECT_EQ(UNITTEST::TestAllTypes::BAR,
             message.GetExtension(UNITTEST::default_nested_enum_extension));

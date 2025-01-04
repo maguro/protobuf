@@ -198,7 +198,9 @@ class PROTOBUF_EXPORT Parser final {
   // tokens of either INTEGER or FLOAT type.
   bool ConsumeNumber(double* output, ErrorMaker error);
   // Consume a string literal and store its (unescaped) value in "output".
-  bool ConsumeString(std::string* output, ErrorMaker error);
+  bool ConsumeStringName(std::string *output, ErrorMaker error);
+  // Consume a string literal and store its (unescaped) value in "output".
+  bool ConsumeStringValue(std::string *output, ErrorMaker error);
 
   // Consume a token representing the end of the statement.  Comments between
   // this token and the next will be harvested for documentation.  The given

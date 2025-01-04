@@ -145,6 +145,11 @@ message TestAllTypes {
 
   bytes default_bytes = 75 [default = "world"];
 
+  string default_m_string = 76 [
+    default = `hello
+world`
+  ];
+
   NestedEnum default_nested_enum = 81 [default = BAR];
 
   ForeignEnum default_foreign_enum = 82 [default = FOREIGN_BAR];
@@ -336,6 +341,11 @@ extend TestAllExtensions {
   string default_string_extension = 74 [default = "hello"];
 
   bytes default_bytes_extension = 75 [default = "world"];
+
+  string default_m_string_extension = 76 [
+    default = `hello
+world`
+  ];
 
   TestAllTypes.NestedEnum default_nested_enum_extension = 81 [default = BAR];
 

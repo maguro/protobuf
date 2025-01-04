@@ -149,6 +149,11 @@ message TestAllTypesLite {
 
   bytes default_bytes = 75 [default = "world"];
 
+  string default_m_string = 76 [
+    default = `hello
+world`
+  ];
+
   NestedEnum default_nested_enum = 81 [default = BAR];
 
   ForeignEnumLite default_foreign_enum = 82 [default = FOREIGN_LITE_BAR];
